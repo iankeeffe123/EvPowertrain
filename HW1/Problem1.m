@@ -1,1 +1,90 @@
-%test
+%% Variable Def
+g = 9.81;
+Af = 2.5;
+Cd = .376;
+Mv = 4000/2.205;
+Aft = 5.5;
+Cdt = 1;
+Mt = 1500/2.205;
+Rw = .33;
+pa = 1.204;
+grade = 0; 
+acceleration = 0;
+Vkph = [30 60 90 120];
+Vmps = Vkph/3.6;
+
+function TotalForce = TotalForce(pa, Cd, Af, Vmps, Vkph, Mv, acceleration, g, grade);
+    AeroDrag = (1/2)*pa*Cd*Af*(Vmps .* Vmps);
+
+    Frr = (.015+.006*(Vkph/100).^2.5)*Mv*g;
+
+    InclineForce = Mv * g * sin(atan(grade/100));
+
+    InertialForce = 1.05 * Mv * acceleration;
+
+    TotalForce = AeroDrag + Frr + InclineForce + InertialForce;
+end
+
+%% part 1 
+Force = TotalForce(pa, Cd, Af, Vmps, Vkph, Mv, acceleration, g, grade);
+PowerKW = Force .* Vmps / 1000;
+disp("Part 1 (kW) = ");
+disp(PowerKW);
+HP = PowerKW * 1.36;
+disp("Part 1 (HP) = ");
+disp(HP);
+T = 1000 * PowerKW ./ (Vmps / Rw);
+disp("Part 1 (N*m) = ");
+disp(T);
+
+%% part 2
+Force = TotalForce(pa, Cdt, Aft, Vmps, Vkph, Mv, acceleration, g, grade);
+PowerKW = Force .* Vmps / 1000;
+disp("Part 2 (kW) = ");
+disp(PowerKW);
+HP = PowerKW * 1.36;
+disp("Part 2 (HP) = ");
+disp(HP);
+T = 1000 * PowerKW ./ (Vmps / Rw);
+disp("Part 2 (N*m) = ");
+disp(T);
+
+%% part 3
+grade = 6;
+Force = TotalForce(pa, Cd, Af, Vmps, Vkph, Mv, acceleration, g, grade);
+PowerKW = Force .* Vmps / 1000;
+disp("Part 3 (kW) = ");
+disp(PowerKW);
+HP = PowerKW * 1.36;
+disp("Part 3 (HP) = ");
+disp(HP);
+T = 1000 * PowerKW ./ (Vmps / Rw);
+disp("Part 3 (N*m) = ");
+disp(T);
+
+%% part 4
+grade = 6;
+Force = TotalForce(pa, Cdt, Aft, Vmps, Vkph, Mv, acceleration, g, grade);
+PowerKW = Force .* Vmps / 1000;
+disp("Part 4 (kW) = ");
+disp(PowerKW);
+HP = PowerKW * 1.36;
+disp("Part 4 (HP) = ");
+disp(HP);
+T = 1000 * PowerKW ./ (Vmps / Rw);
+disp("Part 4 (N*m) = ");
+disp(T);
+
+%% part 5
+grade = 0;
+acceleration = 1;
+Force = TotalForce(pa, Cd, Af, Vmps, Vkph, Mv, acceleration, g, grade);
+PowerKW = Force .* Vmps / 1000;
+disp("Part 5 (kW) = ");
+disp(PowerKW);
+HP = PowerKW * 1.36;
+disp("Part 5 (HP) = ");
+disp(HP);
+T = 1000 * PowerKW ./ (Vmps / Rw);
+disp("Part 5 (N*m) = ");
+disp(T);
